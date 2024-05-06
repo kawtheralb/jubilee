@@ -1,0 +1,74 @@
+﻿* Encoding: UTF-8.
+
+DATASET ACTIVATE DataSet4.
+UNIANOVA neg BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+UNIANOVA disgust BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+UNIANOVA fear BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+UNIANOVA anger BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+UNIANOVA hateful BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+UNIANOVA targeted BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+UNIANOVA aggressive BY condition
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=condition(TUKEY) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=condition.
+
+
+COMPUTE hatescale=MEAN(hateful,targeted,aggressive).
+EXECUTE.
+
+RECODE condition (0=SYSMIS) (1=1) (2=2) (3=3) INTO videosonly.
+VARIABLE LABELS  videosonly 'videosonly'.
+EXECUTE.
+
+UNIANOVA hatescale BY videosonly
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /POSTHOC=videosonly(LSD) 
+  /PRINT ETASQ DESCRIPTIVE
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=videosonly.
